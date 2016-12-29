@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<body>
+  <style>
+    #define button-size 30px;
+    #define button-space 5px;
+    #define menu-width 105px;
+    
+    .art-module {
+      position: relative;
+    }
+    
+    body {
+      margin: 0px;
+    }
+    
+    .art-menu {
+      display: block;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: menu-width;
+      background-color: #CCC;
+      padding-bottom: button-space;
+      padding-right: button-space;
+    }
+    
+    .tool-button {
+      font-size: 8px;
+      display: inline-block;
+      position: relative;
+      height: button-size;
+      width: button-size;
+      background-color: #AAA;
+      margin-left: button-space;
+      margin-top: button-space;
+      outline: none;
+      line-height: button-space;
+      padding: 0px;
+      text-align: center;
+      text-sele
+    }
+    
+    .noselect {
+      -webkit-touch-callout: none;
+      /* iOS Safari */
+      -webkit-user-select: none;
+      /* Chrome/Safari/Opera */
+      -khtml-user-select: none;
+      /* Konqueror */
+      -moz-user-select: none;
+      /* Firefox */
+      -ms-user-select: none;
+      /* Internet Explorer/Edge */
+      user-select: none;
+      /* Non-prefixed version, currently
+                                  not supported by any browser */
+    }
+    
+    .selected.tool-button {
+      background-color: #888;
+    }
+  </style>
+  <script src="./js/extensions/binarysearch.js"></script>
+  <script src="./js/extensions/javascript-library.js"></script>
+  <script src="./js/extensions/stack.js"></script>
+  <script src="./js/extensions/bson.js"></script>
+  <script src="./js/render/geometry.js"></script>
+  <script src="./js/render/shapes.js"></script>
+  <script src="./js/artmodule.js"></script>
+  <script src="./js/events/mouselistener.js"></script>
+  <script src="./js/events/keylistener.js"></script>
+  <script src="./js/events/resizehandler.js"></script>
+  <script src="./js/tools/linetool.js"></script>
+  <script src="./js/tools/circletool.js"></script>
+  <script src="./js/tools/recttool.js"></script>
+  <script src="./js/tools/freetool.js"></script>
+  <script src="./js/tools/grabtool.js"></script>
+  <script src="./js/init.js"></script>
+</body>
+
+</html>
