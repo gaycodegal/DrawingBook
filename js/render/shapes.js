@@ -1,6 +1,6 @@
 Shape = {
-  fromVal: function (val) {
-    var r = window[val[0]].fromVal(val.slice(1));
+  fromVal: function (val, context) {
+    var r = window[val[0]].fromVal(val.slice(1), context);
     return r;
   },
   pointListValueOf: function (points) {
@@ -40,11 +40,45 @@ FreeLine.prototype.draw = function (ctx, c) {
 
 
 function ClearLayer(context) {
-  //I could also just wipe context's history,
-  //but in order to make my life easier, I'm
-  //simply clearing the screen. Inefficent,
-  //but functional.
+  if(context.shapes.peek().constructor == ClearLayer){
+    console.warn("Two clears in a row. Resolved to one.");
+    return;
+  }
+    
+  this.future = null;
+  this.past = null;
+  if (context)
+    this.restore(context);
 }
+
+ClearLayer.prototype.revert = function (context) {
+  if(this.future) return;
+  this.future = context.history.getFuture();
+  if (this.past) {
+    context.history.overwritePresent(this.past);
+  }
+  this.past = null;
+};
+
+ClearLayer.prototype.restore = function (context) {
+  if(this.past) return;
+  if(context.shapes.peek()==this)
+    context.shapes.fill = --context.history.present;
+  this.past = context.history.getPast();
+  context.history.setPresentFuture(History.beginning);
+
+  if (this.future) {
+    context.history.overwriteFuture(this.future);
+    this.future = context.history.future;
+  }
+  context.push(this);
+  if (this.future) {
+    context.history.future = this.future;
+  }
+  this.future = null;
+
+
+};
 
 ClearLayer.fromVal = function (val) {
   return new ClearLayer();

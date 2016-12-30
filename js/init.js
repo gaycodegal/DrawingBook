@@ -38,7 +38,8 @@ art.addTool(new GrabTool(), "Grab");
 
 menu.addButton(new SimpleButton(art, "Clear", function () {
   var c = new ClearLayer(this.context);
-  this.context.shapes.push(c);
+  // not needed: this.context.push(c);
+  // clear layer adds itself
   c.draw(this.context.screen.ctx, this.context);
 }));
 

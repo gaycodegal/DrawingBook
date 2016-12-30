@@ -72,7 +72,7 @@ LineTool.prototype.onup = function (point) {
       point = s.closestLine(point);
     var line = new Line(s.x, s.y, point.x, point.y);
     line.draw(this.ctx, this.context);
-    this.context.shapes.push(line);
+    this.context.push(line);
   }
   this.last = point;
   this.moved = false;

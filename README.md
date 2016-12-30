@@ -1,7 +1,7 @@
 # Drawing Book
 
-This should have all the functionality currently to take basic notes and draw. It can save and load from local files, and notes are infinitely\* large. Will be adding page support and tool options (color, size, ect) eventually.
+This should have all the functionality currently to take basic notes and draw. It can save and load from local files, and notes are infinitely\* large. Has an infinite undo/redo history. Will be adding page support and tool options (color, size, ect) eventually.
 
 Open up index.html to run the program. Not commented yet - but this *might* happen eventually. It should be *reasonably* understandable.
 
-\* not actually infinite, but as big as a `float` can keep track of pixels, so approximately 2^24 pixels wide. This limit is imposed by the BSON save format. JSON will get you 2^53 wide pages as it supports `double`, but honestly you don't need that wide pages.
+\* not actually infinite, but as big as a `float` can keep track of pixels, so approximately 2^24 pixels wide. On a second look, it turns out no operations result in a `float` only `int` so that means that we've got a full 2^31 (signed negative) in the negative direction, and 2^32 (unsigned positive) in the positive direction. That brings us to `0x180000000 +/- 1` pixels wide (almost 2^33). This limit is imposed by the BSON save format. JSON will still get you 2^53 pixels wide pages as it supports `double`, but honestly you don't need that wide pages.

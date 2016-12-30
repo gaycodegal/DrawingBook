@@ -88,6 +88,7 @@ function ArtModule() {
   //list of all the things on the screen
   //starts with something that will remember the stroke / fill
   //color we're drawing with, line width.
+  this.history = new History(this);
   this.shapes = new Stack(32);
   this.shapes.push(new ContextState(this.screen.ctx));
   this.setLineWidth(3);
@@ -100,18 +101,17 @@ function ArtModule() {
   this.transform = this.offset.translate(this.origin.negate());
 }
 
+ArtModule.prototype.push = function (o) {
+  this.shapes.push(o);
+  this.history.didWrite();
+};
+
 ArtModule.prototype.basicUndo = function () {
-  --this.shapes.fill;
-  if(this.shapes.fill < 2)
-    return ++this.shapes.fill;
-  this.redrawAll();
+  this.history.undo();
 };
 
 ArtModule.prototype.basicRedo = function () {
-  ++this.shapes.fill;
-  if (this.fill > this.size || !this.shapes.peek())
-    return --this.shapes.fill;
-  this.redrawAll();
+  this.history.redo();
 };
 
 ArtModule.prototype.valueOf = function () {
@@ -134,7 +134,7 @@ ArtModule.prototype.fromVal = function (rep) {
   var vals = rep[2];
   this.shapes.wipe();
   for (var i = 0; i < vals.length; ++i) {
-    this.shapes.push(Shape.fromVal(vals[i]));
+    this.push(Shape.fromVal(vals[i], this));
   }
   this.redrawAll();
 };
@@ -148,21 +148,21 @@ ArtModule.prototype.setFill = function (color) {
   this.screen.ctx.fillStyle = color;
   var state = new ContextState(this.screen.ctx);
   state.draw(this.tscreen.ctx, this);
-  this.shapes.push(state);
+  this.push(state);
 };
 
 ArtModule.prototype.setStroke = function (color) {
   this.screen.ctx.strokeStyle = color;
   var state = new ContextState(this.screen.ctx);
   state.draw(this.tscreen.ctx, this);
-  this.shapes.push(state);
+  this.push(state);
 };
 
 ArtModule.prototype.setLineWidth = function (width) {
   this.screen.ctx.lineWidth = width;
   var state = new ContextState(this.screen.ctx);
   state.draw(this.tscreen.ctx, this);
-  this.shapes.push(state);
+  this.push(state);
 };
 
 //redraws the image given the shapes that were drawn to it.

@@ -66,7 +66,7 @@ FreeTool.prototype.onup = function (point) {
   this.stack.push(point);
   clear(this.tscreen);
   drawFree(this.ctx, this.stack.data, this.stack.fill, this.context.origin);
-  this.context.shapes.push(new FreeLine(this.stack.data.slice(0, this.stack.fill)));
+  this.context.push(new FreeLine(this.stack.data.slice(0, this.stack.fill)));
 };
 
 function drawQuad(ctx, a, b, c, o) {

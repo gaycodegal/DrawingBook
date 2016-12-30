@@ -99,7 +99,7 @@ RectTool.prototype.onup = function (point) {
     var c = this.context;
     drawRect(this.ctx, rect[0] + c.origin.x, rect[1] + c.origin.y, rect[2], rect[3], c.dostroke, c.dofill);
     this.last = null;
-    this.context.shapes.push(new Rect(rect[0], rect[1], rect[2], rect[3], c.dostroke, c.dofill));
+    this.context.push(new Rect(rect[0], rect[1], rect[2], rect[3], c.dostroke, c.dofill));
   } else {
     this.last = point;
   }
