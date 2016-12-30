@@ -40,11 +40,11 @@ FreeLine.prototype.draw = function (ctx, c) {
 
 
 function ClearLayer(context) {
-  if(context.shapes.peek().constructor == ClearLayer){
+  if (context.shapes.peek().constructor == ClearLayer) {
     console.warn("Two clears in a row. Resolved to one.");
     return;
   }
-    
+
   this.future = null;
   this.past = null;
   if (context)
@@ -52,7 +52,7 @@ function ClearLayer(context) {
 }
 
 ClearLayer.prototype.revert = function (context) {
-  if(this.future) return;
+  if (this.future) return;
   this.future = context.history.getFuture();
   if (this.past) {
     context.history.overwritePresent(this.past);
@@ -61,8 +61,8 @@ ClearLayer.prototype.revert = function (context) {
 };
 
 ClearLayer.prototype.restore = function (context) {
-  if(this.past) return;
-  if(context.shapes.peek()==this)
+  if (this.past) return;
+  if (context.shapes.peek() == this)
     context.shapes.fill = --context.history.present;
   this.past = context.history.getPast();
   context.history.setPresentFuture(History.beginning);
@@ -167,6 +167,7 @@ function ContextState(ctx) {
   }
 }
 
+
 ContextState.fromVal = function (val) {
   var c = new ContextState({});
   c.state = val[0];
@@ -187,3 +188,4 @@ ContextState.prototype.draw = function (ctx, c) {
 };
 
 ContextState.observed = ["strokeStyle", "fillStyle", "lineWidth"];
+ContextState.defaults = {strokeStyle:"#000000", fillStyle:"#000000", lineWidth:3};

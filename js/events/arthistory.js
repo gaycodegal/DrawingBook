@@ -5,7 +5,7 @@ function History(context) {
   this.needsupdate = false;
 }
 
-History.beginning = 2;
+History.beginning = 1;
 
 History.prototype.didWrite = function () {
   var s = this.context.shapes;

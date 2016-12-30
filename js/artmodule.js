@@ -90,8 +90,8 @@ function ArtModule() {
   //color we're drawing with, line width.
   this.history = new History(this);
   this.shapes = new Stack(32);
-  this.shapes.push(new ContextState(this.screen.ctx));
-  this.setLineWidth(3);
+  this.shapes.push(new ContextState(ContextState.defaults));
+  //this.setLineWidth(3);
   var rect = this.screen.canvas.getBoundingClientRect();
   //we'll use this to make sure we're always drawing on the screen.
   this.offset = (new Point(rect.left, rect.top)).negate();
@@ -99,6 +99,7 @@ function ArtModule() {
   this.dofill = false;
   this.origin = new Point();
   this.transform = this.offset.translate(this.origin.negate());
+  this.redrawAll();
 }
 
 ArtModule.prototype.push = function (o) {
@@ -136,6 +137,7 @@ ArtModule.prototype.fromVal = function (rep) {
   for (var i = 0; i < vals.length; ++i) {
     this.push(Shape.fromVal(vals[i], this));
   }
+  this.history.setPresentFuture(this.shapes.fill);
   this.redrawAll();
 };
 
