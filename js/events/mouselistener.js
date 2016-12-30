@@ -2,12 +2,17 @@ function MouseListener(context) {
   this.context = context;
   this.temp = null;
   jl.bind(this, ["ondown", "onmove", "onup"]);
+  context.tscreen.canvas.addEventListener("touchstart", this.ondown);
   context.tscreen.canvas.addEventListener("mousedown", this.ondown);
+  context.tscreen.canvas.addEventListener("touchdrag", this.onmove);
   context.tscreen.canvas.addEventListener("mousemove", this.onmove);
+  context.tscreen.canvas.addEventListener("touchend", this.onup);
   context.tscreen.canvas.addEventListener("mouseup", this.onup);
 }
 
 MouseListener.prototype.ondown = function (event) {
+  event.preventDefault();
+  event.stopPropagation();
   var ctx = this.context;
   ctx.downtool = ctx.tool;
   if (!ctx.tool)
@@ -19,6 +24,8 @@ MouseListener.prototype.ondown = function (event) {
 };
 
 MouseListener.prototype.onmove = function (event) {
+  event.preventDefault();
+  event.stopPropagation();
   var ctx = this.context;
   if (!ctx.tool)
     return;
@@ -32,6 +39,8 @@ MouseListener.prototype.onmove = function (event) {
 };
 
 MouseListener.prototype.onup = function (event) {
+  event.preventDefault();
+  event.stopPropagation();
   var ctx = this.context;
   ctx.downtool = null;
   if (!ctx.tool)
