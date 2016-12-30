@@ -128,8 +128,8 @@ ArtModule.prototype.toString = function () {
 };
 
 ArtModule.prototype.fromVal = function (rep) {
-  this.screen.setBounds(rep[0], rep[1]);
-  this.tscreen.setBounds(rep[0], rep[1]);
+  //this.screen.setBounds(rep[0], rep[1]);
+  //this.tscreen.setBounds(rep[0], rep[1]);
   this.origin = new Point();
   this.transform = this.offset.translate(this.origin.negate());
   var vals = rep[2];

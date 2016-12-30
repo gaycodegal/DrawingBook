@@ -3,18 +3,19 @@ new KeyListener(art, window);
 new ResizeListener(art, window);
 var menu = new Menu(art);
 art.addWidgit(menu);
+var book = new Book(art);
 
 console.info("BSON is provided for my own ease of use. \
 If JSON is preferred, simply look to this line of code - \
 under which you'll find where you can change saving to JSON");
 
-menu.addButton(new SimpleButton(art, "Save", function () {
-  BSON.stringify_array(this.context.valueOf()).download("save.bson");
+menu.addButton(new SimpleButton(book, "Save", function () {
+  BSON.stringify_array(this.context.valueOf()).download("save.drawbook");
 }));
 
 var fileopen = new SimpleButton(art, "Open", null);
 jl.bindFileOpen(fileopen.container, jl.readbin(function (contents) {
-  art.fromVal(BSON.parse(contents));
+  book.fromVal(BSON.parse(contents));
 }));
 
 menu.addButton(fileopen);
@@ -36,6 +37,28 @@ menu.addButton(new SimpleButton(art, "Redo", function () {
 
 art.addTool(new GrabTool(), "Grab");
 
+
+menu.addButton(new SimpleButton(art, "new page before", function () {
+  book.newPageBefore();
+}));
+
+menu.addButton(new SimpleButton(art, "new page after", function () {
+  book.newPageAfter();
+}));
+
+menu.addButton(new SimpleButton(art, "delete this page", function () {
+  if(confirm("Are you sure you want to delete this page?"))
+    book.deletePage();
+}));
+
+menu.addButton(new SimpleButton(art, "Prev", function () {
+  book.prevPage();
+}));
+
+menu.addButton(new SimpleButton(art, "Next", function () {
+  book.nextPage();
+}));
+
 menu.addButton(new SimpleButton(art, "Clear", function () {
   var c = new ClearLayer(this.context);
   // not needed: this.context.push(c);
@@ -51,3 +74,4 @@ art.addTool(new CircleTool(), "Circle");
 art.addTool(new RectTool(), "Rect");
 art.addTool(new FreeTool(), "Free");
 menu.buttons[menu.buttons.length - 1].onclick();
+
