@@ -47,7 +47,7 @@ menu.addButton(new SimpleButton(art, "new page after", function () {
 }));
 
 menu.addButton(new SimpleButton(art, "delete this page", function () {
-  if(confirm("Are you sure you want to delete this page?"))
+  if (confirm("Are you sure you want to delete this page?"))
     book.deletePage();
 }));
 
@@ -73,5 +73,18 @@ art.addTool(new LineTool(), "Line");
 art.addTool(new CircleTool(), "Circle");
 art.addTool(new RectTool(), "Rect");
 art.addTool(new FreeTool(), "Free");
-menu.buttons[menu.buttons.length - 1].onclick();
 
+var showbtn = new SimpleButton(art, "Hide", function () {
+  jl.show(menu);
+  jl.hide(showbtn);
+});
+jl.hide(showbtn);
+art.addWidgit(showbtn);
+
+menu.addButton(new SimpleButton(art, "Hide", function () {
+  jl.hide(menu);
+  jl.show(showbtn);
+}));
+
+
+menu.buttons[menu.buttons.length - 2].onclick();

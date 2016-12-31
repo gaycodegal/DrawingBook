@@ -22,6 +22,17 @@ var jl = {
     return o;
   },
 
+  hide: function (e) {
+    e.container && (e = e.container);
+    e.style["-was-display"] = e.style.display;
+    e.style.display = "none";
+  },
+
+  show: function (e) {
+    e.container && (e = e.container);
+    e.style.display = null; 
+  },
+
   input: function (kind) {
     var o = jl.make("input");
     o.type = kind;
@@ -274,22 +285,22 @@ var jl = {
     this.ctx = c.getContext("2d");
     this.setBounds(300, 300);
   }
-  
-  JLCanvas.prototype.setBounds = function(w, h){
+
+  JLCanvas.prototype.setBounds = function (w, h) {
     this.width = w;
     this.height = h;
-    
+
     this.canvas.width = w;
     this.canvas.height = h;
   };
-  
-  JLCanvas.prototype.assumeFull = function(){
+
+  JLCanvas.prototype.assumeFull = function () {
     this.canvas.style.position = "absolute";
     this.canvas.style.top = this.canvas.style.left = "0px";
     this.setBounds(window.innerWidth, window.innerHeight);
   };
-  JLCanvas.prototype.clear = function(){
-    
+  JLCanvas.prototype.clear = function () {
+
   };
   jl.Canvas = JLCanvas;
 })();
