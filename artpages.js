@@ -35,7 +35,6 @@ Book.prototype.valueOf = function () {
 };
 
 Book.prototype.fromVal = function (val) {
-  console.log(val);
   if (val[1] != Book.version) {
     console.error("Tried to load a book of the wrong version - please convert!");
     alert("Tried to load a book of the wrong version - please convert!");
@@ -123,14 +122,12 @@ Page.prototype.valueOf = function () {
 };
 
 Page.prototype.fromVal = function (val) {
-  console.log(JSON.stringify(val));
   this.name = val[0];
   this.context.fromVal(val[1])
   this.save();
 };
 
 Page.prototype.load = function () {
-  console.log("loading:",this);
   var c = this.context,
     s = c.shapes;
   s.data = this.data;

@@ -17,7 +17,7 @@ MouseListener.prototype.ondown = function (event) {
   ctx.downtool = ctx.tool;
   if (!ctx.tool)
     return;
-  var pt = Point.fromPoint(event).add(ctx.transform);
+  var pt = Point.fromEvent(event).add(ctx.transform);
   this.temp = pt;
   if (ctx.tool.ondown)
     ctx.tool.ondown(pt);
@@ -29,7 +29,7 @@ MouseListener.prototype.onmove = function (event) {
   var ctx = this.context;
   if (!ctx.tool)
     return;
-  var pt = Point.fromPoint(event).add(ctx.transform);
+  var pt = Point.fromEvent(event).add(ctx.transform);
   this.temp = pt;
   if (ctx.downtool == ctx.tool && ctx.tool.ondrag) {
     ctx.tool.ondrag(pt, true);

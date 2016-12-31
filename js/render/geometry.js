@@ -21,6 +21,13 @@ Point.fromPoint = function (pt) {
   return new Point(pt.x, pt.y);
 };
 
+Point.fromEvent = function (e) {
+  e.touches && (e = e.touches[0]);
+  var x = e.clientX || e.pageX;
+  var y = e.clientY || e.pageY;
+  return new Point(x, y);
+};
+
 Point.prototype.midPoint = function (pt) {
   return new Point(this.x + (pt.x - this.x) / 2, this.y + (pt.y - this.y) / 2);
 };
