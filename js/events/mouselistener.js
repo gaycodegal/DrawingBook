@@ -4,7 +4,7 @@ function MouseListener(context) {
   jl.bind(this, ["ondown", "onmove", "onup"]);
   context.tscreen.canvas.addEventListener("touchstart", this.ondown);
   context.tscreen.canvas.addEventListener("mousedown", this.ondown);
-  context.tscreen.canvas.addEventListener("touchdrag", this.onmove);
+  context.tscreen.canvas.addEventListener("touchmove", this.onmove);
   context.tscreen.canvas.addEventListener("mousemove", this.onmove);
   context.tscreen.canvas.addEventListener("touchend", this.onup);
   context.tscreen.canvas.addEventListener("mouseup", this.onup);
