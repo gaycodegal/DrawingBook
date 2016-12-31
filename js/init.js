@@ -74,7 +74,7 @@ art.addTool(new CircleTool(), "Circle");
 art.addTool(new RectTool(), "Rect");
 art.addTool(new FreeTool(), "Free");
 
-var showbtn = new SimpleButton(art, "Hide", function () {
+var showbtn = new SimpleButton(art, "Show", function () {
   jl.show(menu);
   jl.hide(showbtn);
 });
