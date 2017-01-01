@@ -56,10 +56,12 @@ Book.prototype.fromVal = function (val) {
 };
 
 Book.prototype.loadPage = function (index) {
-  if (index < 0 || index > this.pages.length) {
+  if (index < 0 || index >= this.pages.length) {
     console.error("Invalid page number:", index);
     return;
   }
+  if (index == this.index)
+    return console.info("already at: " + index);
   this.current.save();
   this.index = index;
 
@@ -133,6 +135,8 @@ Page.prototype.load = function () {
   s.data = this.data;
   s.fill = c.history.present = this.present;
   c.history.future = this.future;
+  this.context.origin = new Point();
+  this.context.transform = this.context.offset.translate(this.context.origin.negate());
 };
 
 Page.prototype.save = function () {

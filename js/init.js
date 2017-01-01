@@ -2,7 +2,7 @@ new MouseListener(art);
 new KeyListener(art, window);
 new ResizeListener(art, window);
 var menu = new Menu(art);
-art.addWidgit(menu);
+art.addWidgit(menu, "menu");
 var book = new Book(art);
 
 console.info("BSON is provided for my own ease of use. \
@@ -15,7 +15,9 @@ menu.addButton(new SimpleButton(book, "Save", function () {
 
 var fileopen = new SimpleButton(art, "Open", null);
 jl.bindFileOpen(fileopen.container, jl.readbin(function (contents) {
-  book.fromVal(BSON.parse(contents));
+  var val = BSON.parse(contents);
+  book.fromVal(val);
+  art.widgits.pageMenu.updatePage();
 }));
 
 menu.addButton(fileopen);
@@ -38,26 +40,11 @@ menu.addButton(new SimpleButton(art, "Redo", function () {
 art.addTool(new GrabTool(), "Grab");
 
 
-menu.addButton(new SimpleButton(art, "new page before", function () {
-  book.newPageBefore();
+menu.addButton(new SimpleButton(art, "Pages", function () {
+  jl.hide(this.context.widgits.menu);
+  jl.show(this.context.widgits.pageMenu);
 }));
 
-menu.addButton(new SimpleButton(art, "new page after", function () {
-  book.newPageAfter();
-}));
-
-menu.addButton(new SimpleButton(art, "delete this page", function () {
-  if (confirm("Are you sure you want to delete this page?"))
-    book.deletePage();
-}));
-
-menu.addButton(new SimpleButton(art, "Prev", function () {
-  book.prevPage();
-}));
-
-menu.addButton(new SimpleButton(art, "Next", function () {
-  book.nextPage();
-}));
 
 menu.addButton(new SimpleButton(art, "Clear", function () {
   var c = new ClearLayer(this.context);
@@ -75,16 +62,16 @@ art.addTool(new RectTool(), "Rect");
 art.addTool(new FreeTool(), "Free");
 
 var showbtn = new SimpleButton(art, "Show", function () {
-  jl.show(menu);
-  jl.hide(showbtn);
+  jl.show(this.context.widgits.menu);
+  jl.hide(this.context.widgits.showMenuBtn);
 });
 jl.hide(showbtn);
-art.addWidgit(showbtn);
+art.addWidgit(showbtn, "showMenuBtn");
 
 menu.addButton(new SimpleButton(art, "Hide", function () {
-  jl.hide(menu);
-  jl.show(showbtn);
+  jl.show(this.context.widgits.showMenuBtn);
+  jl.hide(this.context.widgits.menu);
 }));
 
 
-menu.buttons[menu.buttons.length - 2].onclick();
+menu.buttons.Free.onclick();

@@ -13,10 +13,41 @@
     #define menu-width 105px;
     .art-module {
       position: relative;
+      height: 100%;
     }
     
-    body {
+    .page-num-input {
+      margin-left: button-space;
+      margin-top: button-space;
+      height: 20px;
+      text-align: right;
+      width: 50px;
+      padding: 0px;
+        border: 0px;
+      outline: none;
+    }
+    
+    .button-base {
+      font-size: 8px;
+      display: inline-block;
+      position: relative;
+      height: button-size;
+      background-color: #AAA;
+      margin-left: button-space;
+      margin-top: button-space;
+      outline: none;
+      line-height: button-space;
+      text-align: center;
+    }
+    
+    .wide-button {
+      padding: 0px 5px;
+    }
+    
+    body,
+    html {
       margin: 0px;
+      height: 100%;
     }
     
     .art-menu {
@@ -30,20 +61,20 @@
       padding-right: button-space;
     }
     
+    .page-menu {
+      vertical-align: middle;
+      display: block;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      background-color: #CCC;
+      padding-bottom: button-space;
+      padding-right: button-space;
+    }
+    
     .tool-button {
-      font-size: 8px;
-      display: inline-block;
-      position: relative;
-      height: button-size;
       width: button-size;
-      background-color: #AAA;
-      margin-left: button-space;
-      margin-top: button-space;
-      outline: none;
-      line-height: button-space;
       padding: 0px;
-      text-align: center;
-      text-sele
     }
     
     .noselect {
@@ -84,6 +115,8 @@
   <script src="./js/tools/freetool.js"></script>
   <script src="./js/tools/grabtool.js"></script>
   <script src="./js/init.js"></script>
+  <script src="./artpagedisplay.js"></script>
+  <script src="./displaymode.js"></script>
 </body>
 
 </html>

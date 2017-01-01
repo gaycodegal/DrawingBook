@@ -8,8 +8,9 @@ jl.stylefix();
 /////////////////////
 
 function ToolButton(tool, context, title) {
-  this.container = jl.maker("button", "tool-button noselect");
+  this.container = jl.maker("button", "button-base tool-button noselect");
   this.container.innerHTML = title;
+  this.name = title;
   this.tool = tool;
   this.context = context;
   jl.bind(this, ["onclick"]);
@@ -22,8 +23,9 @@ ToolButton.prototype.onclick = function () {
 };
 
 function SimpleButton(context, title, onclick) {
-  this.container = jl.maker("button", "tool-button noselect");
+  this.container = jl.maker("button", "button-base tool-button noselect");
   this.container.innerHTML = title;
+  this.name = title;
   this.context = context;
   if (onclick) {
     this.onclick = onclick;
@@ -40,7 +42,7 @@ function Menu(context) {
   this.container = jl.divC("art-menu");
   this.context = context;
   this.selected = null;
-  this.buttons = [];
+  this.buttons = {};
   jl.bind(this, ["ontoolregistered"]);
   context.container.addEventListener("toolregistered", this.ontoolregistered)
 }
@@ -54,12 +56,12 @@ Menu.prototype.onclick = function (button) {
 
 Menu.prototype.addButton = function (button) {
   jl.append(this, button);
+  this.buttons[(button.name)] = button;
 };
 
 Menu.prototype.ontoolregistered = function (event) {
   var r = new ToolButton(event.detail.tool, this, event.detail.title);
-  this.buttons.push(r);
-  jl.append(this, r);
+  this.addButton(r);
 };
 
 /////////////////////
@@ -83,7 +85,7 @@ function ArtModule() {
   this.tool = null;
   this.downtool = null;
   //little things that clutter the screen, like the menu.
-  this.widgits = [];
+  this.widgits = {};
   this.tools = [];
   //list of all the things on the screen
   //starts with something that will remember the stroke / fill
@@ -134,9 +136,11 @@ ArtModule.prototype.fromVal = function (rep) {
   this.transform = this.offset.translate(this.origin.negate());
   var vals = rep[2];
   this.shapes.wipe();
+
   for (var i = 0; i < vals.length; ++i) {
     this.push(Shape.fromVal(vals[i], this));
   }
+  
   this.history.setPresentFuture(this.shapes.fill);
   this.redrawAll();
 };
@@ -198,8 +202,8 @@ ArtModule.prototype.addTool = function (tool, title) {
   this.container.dispatchEvent(event);
 };
 
-ArtModule.prototype.addWidgit = function (widgit) {
-  this.widgits.push(widgit);
+ArtModule.prototype.addWidgit = function (widgit, name) {
+  this.widgits[name] = (widgit);
   jl.append(this.container, widgit);
 };
 

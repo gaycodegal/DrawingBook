@@ -40,7 +40,7 @@ FreeLine.prototype.draw = function (ctx, c) {
 
 
 function ClearLayer(context) {
-  if (context.shapes.peek().constructor == ClearLayer) {
+  if (context && context.shapes.peek().constructor == ClearLayer) {
     console.warn("Two clears in a row. Resolved to one.");
     return;
   }
