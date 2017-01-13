@@ -1,3 +1,10 @@
+/**
+This file is purposely much sloppier than the others,
+and is meant to show a use of the fairly well written
+artmodule. I suppose I'll clean it up eventually when
+I decide on a good interface for it.
+*/
+
 new MouseListener(art);
 new KeyListener(art, window);
 new ResizeListener(art, window);
